@@ -16,7 +16,7 @@
     "@babel/runtime": "^7.5.0",
     "consign": "^0.1.6",
     "cors": "^2.8.5",
-    "csv-parse": "^4.4.3",
+    "csv-parse": "^4.4.6",
     "express": "^4.17.1",
     "node-fetch": "^2.6.0",
     "npm-upgrade": "^1.4.1",
