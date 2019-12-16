@@ -48,115 +48,19 @@ export default (app, server) => {
     console.log('Conexion establecida para usuario', userId)
   })
 
-  app.route('/notificacion/')
-    // app.route('/notificacion/:user_id')
-    // .get((req, res) => {
-    //   const userId = req.params.user_id
-    //   let socket = userSockets[userId]
-    //   console.log('get', userId)
-    //   if (typeof (socket) !== 'undefined' && socket.readyState === ws.OPEN) {
-    //     socket.send('mensaje de prueba')
-    //     res.json({hola:'holaa'})
-    //   } else {        
-    //     res.status(204).json({ mensaje: 'exito' })
-
-    //   }
-    // })
-    .post((req, res) => {      
-      let recibido = req.body;
-      let id_destino = recibido.mph;
-      let id_origen = recibido.persona;      
-      
-      let socket = userSockets[id_destino]
-      let socket2 = userSockets[id_origen]
+  // app.route('/notificacion/')
+    app.route('/notificacion')
+    .get((req, res) => {
+      // const userId = req.params.user_id
+      let socket = userSockets[1]
+      // console.log('get', userId)
       if (typeof (socket) !== 'undefined' && socket.readyState === ws.OPEN) {
-        // console.log('socket valido y abierto')
-        socket.send(JSON.stringify(req.body))
-        // socket2.send(JSON.stringify('recibido en destino'))
+        socket.send('mensaje de prueba')
+        res.json({hola:'holaa'})
+      } else {        
         res.status(204).json({ mensaje: 'exito' })
-      } else {
-        // console.log('socket inválido o no abierto')
-        res.status(404).json({ mensaje: 'fracaso' })
+
       }
     })
 
-
-  app.route('/resp/:user_id')
-    .post((req, res) => {
-      const userId = req.params.user_id
-      console.log("post a usuario", userId)
-      console.log(req.body)
-      let socket = userSockets[userId]
-      if (typeof (socket) !== 'undefined' && socket.readyState === ws.OPEN) {
-        console.log('socket valido y abierto')
-        socket.send(JSON.stringify(req.body))
-        res.status(204).json({ mensaje: 'exito' })
-      } else {
-        console.log('socket inválido o no abierto')
-        res.status(404).json({ mensaje: 'fracaso' })
-      }
-    })
-
-    app.route('/responseToUser/:user_id')
-    .post((req, res) => {
-      const userId = req.params.user_id
-      
-      console.log(req.body)
-      let socket = userSockets[userId]
-      if (typeof (socket) !== 'undefined' && socket.readyState === ws.OPEN) {
-        console.log('socket valido y abierto')
-        socket.send(JSON.stringify(req.body))
-        res.status(204).json({ mensaje: 'exito' })
-      } else {
-        console.log('socket inválido o no abierto')
-        res.status(404).json({ mensaje: 'fracaso' })
-      }
-    })
-
-
-
-
-  // app.route('/ubicacion-repartidores/')
-  //   .post((req, res) => {
-  //     const url_superusuarios = 'http://localhost:8003/superusuario/1'
-  //     fetchSuperusuarios(url_superusuarios)
-  //       .then(superusuarios => {
-  //         console.log(superusuarios)
-  //         let sockets = superusuarios
-  //           .map(superusuarioId => userSockets[superusuarioId])
-  //           .filter(socket => typeof (socket) !== 'undefined' && socket.readyState === ws.OPEN)
-  //           .map(socketValido => {
-  //             console.log('socket valido')
-  //             socketValido.send(JSON.stringify(req.body))
-  //           })
-  //       })
-  //       .then(() => res.status(204).json({ mensaje: 'exito' }))
-  //       .catch(err => res.status(412).json({ mensaje: err.message }))
-  //   })
-
-  // app.route('/ubicacion-repartidor/:clienteId')
-  //   .post((req, res) => {
-  //     const clienteId = req.params.clienteId
-  //     let socket = userSockets[clienteId]
-  //     console.log('clienteId', clienteId)
-  //     console.log(req.body)
-  //     if (typeof (socket) !== 'undefined' && socket.readyState === ws.OPEN) {
-  //       console.log('socket valido')
-  //       socket.send(JSON.stringify(req.body))
-  //       res.status(204).json({ mensaje: 'exito' })
-  //     } else {
-  //       console.log('socket inválido o cerrado')
-  //       res.status(204).json({ mensaje: 'fracaso socket invalido o cerrado' })
-  //     }
-  //   })
 }
-
-// const fetchSuperusuarios = async (url) => {
-//   let superusuarios = await fetch(url)
-//     .then(res => res.json())
-//     .catch(err => console.error(err))
-
-//   superusuarios = superusuarios[0].superusuarios
-//     .map(superusuario => superusuario.id)
-//   return superusuarios
-// }
